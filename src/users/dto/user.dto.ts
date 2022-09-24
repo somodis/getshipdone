@@ -23,20 +23,18 @@ export class UserDto {
 
   @IsOptional()
   avatar: any;
-
-  @Type(() => TodoDto)
-  @IsArray()
-  @IsOptional()
-  todos: TodoDto[];
 }
 
 export class UpdateUserDto {
-  @IsNumber()
   id: number;
 
   @IsOptional()
   @IsString()
   username: string;
+
+  @IsEmail()
+  @IsOptional()
+  email: string;
 
   @IsOptional()
   @IsString()
@@ -45,9 +43,4 @@ export class UpdateUserDto {
 
   @IsOptional()
   avatar: any;
-
-  @Type(() => TodoDto)
-  @IsArray()
-  @IsOptional()
-  todos: TodoDto[];
 }

@@ -1,17 +1,30 @@
 import { Type } from 'class-transformer';
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { UserDto } from 'src/users/dto/user.dto';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { UpdateUserDto } from 'src/users/dto/user.dto';
 
 export class TodoDto {
-  id: number;
-
   @IsString()
   title: string;
 
-  @Type(() => UserDto)
-  @IsNotEmpty()
+  @Type(() => UpdateUserDto)
   @IsOptional()
-  assignee: UserDto;
+  assignee: UpdateUserDto;
+
+  @IsOptional()
+  @IsBoolean()
+  done: boolean;
+}
+
+export class UpdateTodoDto {
+  id: number;
+
+  @IsString()
+  @IsOptional()
+  title: string;
+
+  @Type(() => UpdateUserDto)
+  @IsOptional()
+  assignee: UpdateUserDto;
 
   @IsOptional()
   @IsBoolean()
