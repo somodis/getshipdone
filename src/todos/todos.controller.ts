@@ -8,10 +8,12 @@ import {
   Delete,
   NotFoundException,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { TodoDto, UpdateTodoDto } from './dto/todo.dto';
 import { UsersService } from 'src/users/users.service';
+import { TokenGuard } from 'src/auth/guards/token.guard';
 
 @Controller('todos')
 export class TodosController {
@@ -21,6 +23,7 @@ export class TodosController {
   ) {}
 
   @Post()
+  @UseGuards(TokenGuard)
   async create(@Body() data: TodoDto) {
     const user = await this.usersService.findOne(data.assignee.id);
 
@@ -32,11 +35,13 @@ export class TodosController {
   }
 
   @Get()
+  @UseGuards(TokenGuard)
   async findAll() {
     return this.todosService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(TokenGuard)
   async findOne(@Param('id') id: string) {
     const todo = await this.todosService.findOne(+id);
 
@@ -47,6 +52,7 @@ export class TodosController {
   }
 
   @Patch(':id')
+  @UseGuards(TokenGuard)
   async update(@Param('id') id: string, @Body() data: UpdateTodoDto) {
     const todo = await this.todosService.findOne(+id);
 
@@ -66,6 +72,7 @@ export class TodosController {
   }
 
   @Delete(':id')
+  @UseGuards(TokenGuard)
   async remove(@Param('id') id: string) {
     const todo = await this.todosService.findOne(+id);
 

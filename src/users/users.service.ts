@@ -19,7 +19,6 @@ export class UsersService {
 
   async create(data: UserDto) {
     try {
-      data.password = await hash(data.password, 10);
       const user = await this.usersRepository.save(data);
 
       return this.findOne(user.id);
@@ -63,5 +62,18 @@ export class UsersService {
 
   async remove(id: number) {
     await this.usersRepository.delete(id);
+  }
+
+  async findUserByUsername(username: string): Promise<UserEntity | null> {
+    return this.usersRepository.findOne({ where: { username } });
+  }
+
+  async findPasswordByUsername(username: string): Promise<string | undefined> {
+    const user = await this.usersRepository.findOne({
+      where: { username },
+      select: ['password'],
+    });
+
+    return user?.password;
   }
 }

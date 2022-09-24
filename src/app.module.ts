@@ -3,8 +3,7 @@ import { UsersModule } from './users/users.module';
 import { TodosModule } from './todos/todos.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
-import { UserEntity } from './database/entity/user.entity';
-import { TodoEntity } from './database/entity/todo.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +16,7 @@ import { TodoEntity } from './database/entity/todo.entity';
     }),
     UsersModule,
     TodosModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
