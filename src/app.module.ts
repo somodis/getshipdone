@@ -4,9 +4,12 @@ import { TodosModule } from './todos/todos.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { validate } from './config/validate';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true, cache: true, validate }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: path.resolve(__dirname, '../data/db.sqlite'),
