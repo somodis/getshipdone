@@ -6,36 +6,72 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
-import { TodoDto } from './dto/todo.dto';
+import { TodoDto, UpdateTodoDto } from './dto/todo.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('todos')
 export class TodosController {
-  constructor(private readonly todosService: TodosService) {}
+  constructor(
+    private readonly todosService: TodosService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Post()
-  create(@Body() data: TodoDto) {
+  async create(@Body() data: TodoDto) {
+    const user = await this.usersService.findOne(data.assignee.id);
+
+    if (!user) {
+      throw new BadRequestException('Assignee does not exist!');
+    }
+
     return this.todosService.create(data);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.todosService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
+    const todo = await this.todosService.findOne(+id);
+
+    if (!todo) {
+      throw new NotFoundException();
+    }
     return this.todosService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() data: TodoDto) {
+  async update(@Param('id') id: string, @Body() data: UpdateTodoDto) {
+    const todo = await this.todosService.findOne(+id);
+
+    if (!todo) {
+      throw new NotFoundException();
+    }
+
+    if (data.assignee) {
+      const user = await this.usersService.findOne(data.assignee.id);
+
+      if (!user) {
+        throw new BadRequestException('Assignee does not exist!');
+      }
+    }
+
     return this.todosService.update(+id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    const todo = await this.todosService.findOne(+id);
+
+    if (!todo) {
+      throw new NotFoundException();
+    }
     return this.todosService.remove(+id);
   }
 }
