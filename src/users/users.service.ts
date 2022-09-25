@@ -41,7 +41,7 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<UserEntity | undefined> {
     return this.usersRepository.findOne({
       where: {
         id: id,
@@ -74,7 +74,7 @@ export class UsersService {
     await this.usersRepository.delete(id);
   }
 
-  async findUserByUsername(username: string): Promise<UserEntity | null> {
+  async findUserByUsername(username: string): Promise<UserEntity | undefined> {
     return this.usersRepository.findOne({ where: { username } });
   }
 
