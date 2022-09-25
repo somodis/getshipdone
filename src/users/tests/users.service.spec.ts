@@ -32,6 +32,7 @@ describe('The UsersService', () => {
         expect(fetchedUser).toEqual(user);
       });
     });
+
     describe('and the user is not matched', () => {
       beforeEach(() => {
         findOne.mockReturnValue(undefined);
@@ -40,7 +41,6 @@ describe('The UsersService', () => {
         const fetchedUser = await usersService.findUserByUsername(
           '7XaS7*ZCp1qn',
         );
-        console.log(fetchedUser);
         expect(fetchedUser).toBeUndefined();
       });
     });
