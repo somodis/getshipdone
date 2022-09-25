@@ -11,6 +11,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Req,
+  ForbiddenException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { TokenGuard } from 'src/auth/guards/token.guard';
@@ -65,6 +66,9 @@ export class UsersController {
 
     if (!user) {
       throw new NotFoundException();
+    }
+    if (data.role && user.role !== Role.ADMIN) {
+      throw new ForbiddenException();
     }
 
     return this.usersService.update(me.id, data);

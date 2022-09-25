@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { Role } from 'src/common/constants/role-enum';
 
-export class UserDto {
+export class RegisterUserDto {
   @IsString()
   username: string;
 
@@ -18,14 +18,6 @@ export class UserDto {
   @IsString()
   @MinLength(8)
   password: string;
-
-  @IsOptional()
-  @IsString()
-  avatar: string;
-
-  @IsOptional()
-  @IsEnum(Role)
-  role: Role;
 }
 
 export class UpdateUserDto {
@@ -45,10 +37,13 @@ export class UpdateUserDto {
   password: string;
 
   @IsOptional()
-  @IsString()
-  avatar: string;
-
-  @IsOptional()
   @IsEnum(Role)
   role: Role;
+}
+export class UploadPhotoDto {
+  id: number;
+
+  @IsOptional()
+  @IsString()
+  avatar: string;
 }

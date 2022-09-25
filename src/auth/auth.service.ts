@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { UserEntity } from 'src/database/entity/user.entity';
-import { UserDto } from 'src/users/dto/user.dto';
+import { RegisterUserDto } from 'src/users/dto/user.dto';
 import { UsersService } from 'src/users/users.service';
 import { TokenPayload } from './interfaces/token-payload.interface';
 
@@ -17,7 +17,7 @@ export class AuthService {
     return this.getJwtToken(user.id);
   }
 
-  async register(registrationData: UserDto) {
+  async register(registrationData: RegisterUserDto) {
     const hashedPassword = await hash(registrationData.password, 10);
 
     return await this.usersService.create({

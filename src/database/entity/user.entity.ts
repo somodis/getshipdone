@@ -26,7 +26,7 @@ export class UserEntity {
   @Column({ type: 'varchar', nullable: true })
   avatar: any;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, default: Role.USER })
   role: Role;
 
   @OneToMany(() => TodoEntity, (todo) => todo.assignee)

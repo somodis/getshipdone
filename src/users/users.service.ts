@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateUserDto, UserDto } from './dto/user.dto';
+import { UpdateUserDto, UploadPhotoDto, RegisterUserDto } from './dto/user.dto';
 import { hash } from 'bcrypt';
 import { DatabaseError } from 'src/common/constants/database-error';
 import { UserEntity } from 'src/database/entity/user.entity';
@@ -19,7 +19,7 @@ export class UsersService {
     private readonly usersRepository: Repository<UserEntity>,
   ) {}
 
-  async create(data: UserDto) {
+  async create(data: RegisterUserDto) {
     try {
       const user = await this.usersRepository.save(data);
 
@@ -62,6 +62,14 @@ export class UsersService {
     return this.findOne(user.id);
   }
 
+  async updatePhoto(id: number, data: UploadPhotoDto) {
+    data.id = id;
+
+    const user = await this.usersRepository.save(data);
+
+    return this.findOne(user.id);
+  }
+
   async remove(id: number) {
     await this.usersRepository.delete(id);
   }
@@ -80,7 +88,7 @@ export class UsersService {
   }
 
   async updateUserPicById(userId: number, imagePath: string) {
-    const updateData = new UpdateUserDto();
+    const updateData = new UploadPhotoDto();
     updateData.avatar = imagePath;
 
     const user = await this.findOne(userId);
@@ -96,6 +104,6 @@ export class UsersService {
       });
     }
 
-    return await this.update(userId, updateData);
+    return await this.updatePhoto(userId, updateData);
   }
 }
