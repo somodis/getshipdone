@@ -22,7 +22,7 @@ export class UserDto {
   password: string;
 
   @IsOptional()
-  avatar: any;
+  avatar: string;
 }
 
 export class UpdateUserDto {
@@ -42,5 +42,5 @@ export class UpdateUserDto {
   password: string;
 
   @IsOptional()
-  avatar: any;
+  avatar: string;
 }

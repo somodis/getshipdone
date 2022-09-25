@@ -9,6 +9,8 @@ import { UpdateUserDto, UserDto } from './dto/user.dto';
 import { hash } from 'bcrypt';
 import { DatabaseError } from 'src/common/constants/database-error';
 import { UserEntity } from 'src/database/entity/user.entity';
+import { join } from 'path';
+import { unlink } from 'fs';
 
 @Injectable()
 export class UsersService {
@@ -75,5 +77,25 @@ export class UsersService {
     });
 
     return user?.password;
+  }
+
+  async updateUserPicById(userId: number, imagePath: string) {
+    const updateData = new UpdateUserDto();
+    updateData.avatar = imagePath;
+
+    const user = await this.findOne(userId);
+
+    // If user already has a profile picture/avatar we should delete the old image from the storage
+    if (user.avatar) {
+      const fullImagePath = join(process.cwd(), user.avatar);
+
+      // Delete img from files
+      unlink(fullImagePath, (err) => {
+        if (err) throw new Error(err.message);
+        console.log(`Image ${imagePath} was deleted.`);
+      });
+    }
+
+    return await this.update(userId, updateData);
   }
 }

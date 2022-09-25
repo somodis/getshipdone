@@ -8,10 +8,17 @@ import {
   Delete,
   NotFoundException,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
+  Req,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { TokenGuard } from 'src/auth/guards/token.guard';
-import { UpdateUserDto, UserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+import { Express } from 'express';
+import { UserEntity } from 'src/database/entity/user.entity';
+import { localOptions } from './upload-options.constant';
 
 @Controller('users')
 export class UsersController {
@@ -56,5 +63,14 @@ export class UsersController {
     }
 
     return this.usersService.remove(+id);
+  }
+
+  @Post('/picture')
+  @UseGuards(TokenGuard)
+  @UseInterceptors(FileInterceptor('file', localOptions))
+  handleUpload(@UploadedFile() file: Express.Multer.File, @Req() req) {
+    const user: UserEntity = req.user;
+    console.debug(`User: ${user.username} uploaded file: ${file.filename}`);
+    return this.usersService.updateUserPicById(user.id, file.path);
   }
 }
