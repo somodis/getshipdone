@@ -38,7 +38,20 @@ export class UsersController {
     if (!user) {
       throw new NotFoundException();
     }
-    return this.usersService.findOne(+id);
+
+    return user;
+  }
+
+  @Get('me')
+  @UseGuards(TokenGuard)
+  async findMe(@Req() req) {
+    const me: UserEntity = req.user;
+    const user = await this.usersService.findOne(me.id);
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 
   @Patch(':id')
@@ -53,6 +66,19 @@ export class UsersController {
     return this.usersService.update(+id, data);
   }
 
+  @Patch('me')
+  @UseGuards(TokenGuard)
+  async updateMe(@Body() data: UpdateUserDto, @Req() req) {
+    const me: UserEntity = req.user;
+    const user = await this.usersService.findOne(me.id);
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return this.usersService.update(me.id, data);
+  }
+
   @Delete(':id')
   @UseGuards(TokenGuard)
   async remove(@Param('id') id: string) {
@@ -63,6 +89,19 @@ export class UsersController {
     }
 
     return this.usersService.remove(+id);
+  }
+
+  @Delete('me')
+  @UseGuards(TokenGuard)
+  async removeMe(@Req() req) {
+    const me: UserEntity = req.user;
+    const user = await this.usersService.findOne(me.id);
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return this.usersService.remove(me.id);
   }
 
   @Post('/picture')
