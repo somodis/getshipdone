@@ -1,13 +1,11 @@
-import { Type } from 'class-transformer';
 import {
-  IsArray,
   IsEmail,
-  IsNumber,
+  IsEnum,
   IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
-import { TodoDto } from 'src/todos/dto/todo.dto';
+import { Role } from 'src/common/constants/role-enum';
 
 export class UserDto {
   @IsString()
@@ -22,7 +20,12 @@ export class UserDto {
   password: string;
 
   @IsOptional()
+  @IsString()
   avatar: string;
+
+  @IsOptional()
+  @IsEnum(Role)
+  role: Role;
 }
 
 export class UpdateUserDto {
@@ -42,5 +45,10 @@ export class UpdateUserDto {
   password: string;
 
   @IsOptional()
+  @IsString()
   avatar: string;
+
+  @IsOptional()
+  @IsEnum(Role)
+  role: Role;
 }

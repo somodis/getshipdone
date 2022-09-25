@@ -1,3 +1,4 @@
+import { Role } from 'src/common/constants/role-enum';
 import {
   Entity,
   Column,
@@ -24,6 +25,9 @@ export class UserEntity {
 
   @Column({ type: 'varchar', nullable: true })
   avatar: any;
+
+  @Column({ type: 'varchar', nullable: true })
+  role: Role;
 
   @OneToMany(() => TodoEntity, (todo) => todo.assignee)
   todos: TodoEntity[];

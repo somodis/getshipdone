@@ -14,6 +14,8 @@ import { TodosService } from './todos.service';
 import { TodoDto, UpdateTodoDto } from './dto/todo.dto';
 import { UsersService } from 'src/users/users.service';
 import { TokenGuard } from 'src/auth/guards/token.guard';
+import { RoleGuard } from 'src/auth/guards/role.guard';
+import { Role } from 'src/common/constants/role-enum';
 
 @Controller('todos')
 export class TodosController {
@@ -72,7 +74,7 @@ export class TodosController {
   }
 
   @Delete(':id')
-  @UseGuards(TokenGuard)
+  @UseGuards(TokenGuard, RoleGuard([Role.ADMIN]))
   async remove(@Param('id') id: string) {
     const todo = await this.todosService.findOne(+id);
 
