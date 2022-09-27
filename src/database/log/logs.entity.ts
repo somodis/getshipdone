@@ -10,7 +10,10 @@ class Log {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column()
+  @Column({ nullable: true })
+  public userId: number;
+
+  @Column({ nullable: true })
   public context: string;
 
   @Column()

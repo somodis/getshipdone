@@ -1,6 +1,7 @@
 export class CreateLogDto {
-  context: string;
+  context?: string;
   message: string;
   level: string;
+  userId?: number;
 }
 export default CreateLogDto;

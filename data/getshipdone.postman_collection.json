@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "0fd15b63-aa50-4262-ab6c-7b4450b62a60",
+		"name": "getshipdone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/users",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/users/2",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /users/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"role\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/users/2",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL /users/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/users/9",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"users",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/todos",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /todos/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/todos/11",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"todos",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /todos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"something important\",\n    \"assignee\":{\"id\": 1}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/todos",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /todos/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"water the dogs\",\n    \"assignee\": {\"id\": 1},\n    \"done\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/todos/19",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"todos",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL /todos/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/todos/19",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"todos",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"git.aron\",\n    \"password\": \"GitAron88\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/auth/login",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"hekk.elek\",\n    \"password\": \"HekkElek88\",\n    \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/auth/register",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /users/picture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/kremes/Documents/res.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{IP}}:{{PORT}}/users/picture",
+					"protocol": "http",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"users",
+						"picture"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2NDEwMjU5OSwiZXhwIjoxNjY0NzA3Mzk5fQ.wWuRtMyBDTItuyDXaxafctbziZ6YC0nRArGxIdLZ95s",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "IP",
+			"value": "localhost"
+		},
+		{
+			"key": "PORT",
+			"value": "3000"
+		}
+	]
+}

@@ -27,52 +27,57 @@ class CustomLogger extends ConsoleLogger {
     this.logsService = logsService;
   }
 
-  log(message: string, context?: string) {
+  log(message: string, context?: string, userId?: number) {
     super.log.apply(this, [message, context]);
 
     this.logsService.createLog({
       message,
       context,
+      userId,
       level: 'log',
     });
   }
-  error(message: string, stack?: string, context?: string) {
+  error(message: string, stack?: string, context?: string, userId?: number) {
     super.error.apply(this, [message, stack, context]);
 
     this.logsService.createLog({
       message,
       context,
+      userId,
       level: 'error',
     });
   }
-  warn(message: string, context?: string) {
+  warn(message: string, context?: string, userId?: number) {
     super.warn.apply(this, [message, context]);
 
     this.logsService.createLog({
       message,
       context,
+      userId,
       level: 'warn',
     });
   }
 
-  debug(message: string, context?: string) {
+  debug(message: string, context?: string, userId?: number) {
     super.debug.apply(this, [message, context]);
 
     this.isLevelEnabled('debug') &&
       this.logsService.createLog({
         message,
         context,
+        userId,
         level: 'debug',
       });
   }
 
-  verbose(message: string, context?: string) {
+  verbose(message: string, context?: string, userId?: number) {
     super.debug.apply(this, [message, context]);
 
     this.isLevelEnabled('verbose') &&
       this.logsService.createLog({
         message,
         context,
+        userId,
         level: 'verbose',
       });
   }
