@@ -12,6 +12,10 @@ export default class LogsService {
     private logsRepository: Repository<Log>,
   ) {}
 
+  /**
+   * Does a cronjob every 1st day of month at noon. The job is:
+   * Delete logs from logs database that are older that 33days. Wait 10s, then VACUUM the database to free up space.
+   */
   @Cron(CronExpression.EVERY_1ST_DAY_OF_MONTH_AT_NOON)
   async handleCron() {
     try {
@@ -43,7 +47,12 @@ export default class LogsService {
     }
   }
 
-  async createLog(log: CreateLogDto) {
+  /**
+   * Creates a log record in the log database.
+   * @param log
+   * @returns
+   */
+  async createLog(log: CreateLogDto): Promise<Log> {
     const newLog = await this.logsRepository.create(log);
     await this.logsRepository.save(newLog, {
       data: {

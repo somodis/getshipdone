@@ -16,6 +16,11 @@ export class TodosService {
     private readonly todosRepository: Repository<TodoEntity>,
   ) {}
 
+  /**
+   * Creates a new TODD.
+   * @param data
+   * @returns newly created todo entity
+   */
   async create(data: TodoDto) {
     try {
       const todo = await this.todosRepository.save(data);
@@ -34,10 +39,18 @@ export class TodosService {
     }
   }
 
+  /**
+   * Returns all todos.
+   */
   async findAll() {
     return this.todosRepository.find();
   }
 
+  /**
+   * Finds one todo based on todo id.
+   * @param id
+   * @returns one todo with it's assignee
+   */
   async findOne(id: number) {
     return this.todosRepository.findOne({
       where: { id: id },
@@ -45,6 +58,12 @@ export class TodosService {
     });
   }
 
+  /**
+   * Updates a todo record.
+   * @param id
+   * @param data
+   * @returns the updated todo.
+   */
   async update(id: number, data: UpdateTodoDto) {
     data.id = id;
 
@@ -53,6 +72,10 @@ export class TodosService {
     return this.findOne(todo.id);
   }
 
+  /**
+   * Deletes a todo from the database by id.
+   * @param id
+   */
   async remove(id: number) {
     await this.todosRepository.delete(id);
   }

@@ -14,6 +14,10 @@ class LogsMiddleware implements NestMiddleware {
       const userObj = user as UserEntity;
       const userId = userObj?.id;
 
+      if (body?.password) {
+        body.password = '*';
+      }
+
       const message = `${method} ${originalUrl}: [${JSON.stringify(
         body,
       )}] > ${statusCode} ${statusMessage}`;
